@@ -2,18 +2,30 @@ import React, { Component } from 'react';
 import './App.css';
 import Axios from 'axios';
 import Vote from './Vote'
+import Leaderboard from './Leaderboard'
+import Score from './Score'
 
 class App extends Component {
   constructor(){
     super()
     this.state = {
       celeb1: '',
-      celeb2: ''
+      celeb2: '',
+      leaderboard: [],
+      stats: {}
     }
     this.voting.get = this.voting.get.bind(this)
+    this.voting.cast = this.voting.cast.bind(this)
+    this.voting.updateLeaderboard = this.voting.updateLeaderboard.bind(this)
+    this.tracker.update = this.tracker.update.bind(this)
+    this.tracker.get = this.tracker.get.bind(this)
   }
   componentDidMount(){
     this.voting.get()
+    this.voting.updateLeaderboard()
+  }
+  componentDidUpdate(){
+    // this.voting.updateLeaderboard()
   }
   voting = {
     cast: e => {
@@ -27,6 +39,8 @@ class App extends Component {
         .then(d => console.log(d))
         .catch(err => console.log(err))
       this.voting.get()
+      this.tracker.update()
+      this.voting.updateLeaderboard()
     },
     get: e => {
       Axios.get('http://localhost:3002/api/vote')
@@ -35,12 +49,28 @@ class App extends Component {
             console.log(this.state)
           })
         })
+    },
+    updateLeaderboard: () => {
+      Axios.get('http://localhost:3002/api/leaderboard')
+        .then(data => this.setState({leaderboard:data.data}, () => console.log(this.state)))
+        .catch(err => console.log(err))
     }
-  }
+   }
+   tracker = {
+     update: () => {
+       const s = this.tracker.get()
+       s.count ++
+       this.setState({stats:s})
+       localStorage.setItem('score',JSON.stringify(s))
+     },
+     get: () => localStorage.getItem('score') ? JSON.parse(localStorage.getItem('score')) : {count:0,correct:0,wrong:0}
+   }
   render() {
     return (
       <div className="App">
+        <Leaderboard leaderboard={this.state.leaderboard}/>
         <Vote voting={this.voting} state={{...this.state}}/>
+        <Score tracker={this.tracker} stats={{...this.state.stats}}/>
       </div>
     );
   }
