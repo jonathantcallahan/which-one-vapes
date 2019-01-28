@@ -19,6 +19,7 @@ class App extends Component {
     this.voting.updateLeaderboard = this.voting.updateLeaderboard.bind(this)
     this.tracker.update = this.tracker.update.bind(this)
     this.tracker.get = this.tracker.get.bind(this)
+    this.tracker.guess = this.tracker.guess.bind(this)
   }
   componentDidMount(){
     this.voting.get()
@@ -36,7 +37,7 @@ class App extends Component {
       ]
       console.log(vote)
       Axios.post('http://localhost:3002/api/vote',vote)
-        .then(d => console.log(d))
+        .then(d => this.tracker.guess(d.data))
         .catch(err => console.log(err))
       this.voting.get()
       this.tracker.update()
@@ -60,6 +61,16 @@ class App extends Component {
      update: () => {
        const s = this.tracker.get()
        s.count ++
+       this.setState({stats:s})
+       localStorage.setItem('score',JSON.stringify(s))
+     },
+     guess: g => {
+       const s = this.tracker.get()
+       if(g == 'correct'){
+         s.correct ++
+       } else if(g == 'wrong'){
+         s.wrong ++
+       }
        this.setState({stats:s})
        localStorage.setItem('score',JSON.stringify(s))
      },
