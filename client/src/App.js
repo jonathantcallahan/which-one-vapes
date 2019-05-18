@@ -40,7 +40,7 @@ class App extends Component {
         .then(d => this.tracker.guess(d.data))
         .catch(err => console.log(err))
       this.voting.get()
-      this.tracker.update()
+      this.tracker.update() 
       this.voting.updateLeaderboard()
     },
     get: e => {

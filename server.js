@@ -6,7 +6,7 @@ const app = express()
 
 const PORT = process.env.PORT || process.argv[2] || 3002
 
-const MONGODB_URI = 'mongodb://wwv:password1@ds213715.mlab.com:13715/wwv'
+const MONGODB_URI = 'mongodb://wwv:password1@ds137206.mlab.com:37206/muppets'
 
 mongoose.Promise = Promise
 mongoose.connect(MONGODB_URI, { useNewUrlParser:true })

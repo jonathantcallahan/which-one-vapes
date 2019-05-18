@@ -44,11 +44,22 @@ module.exports = (app, Celeb) => {
         const name1 = req.body[0][0]
         const name2 = req.body[1][0]
         const guess = req.body[0][1] == 'win' ? 1 : 2
-        Celeb.findOneAndUpdate({name:name1},{$inc: {
-            [req.body[0][1] == 'win' ? 'yes' : 'no']:1
-        }}).exec(function(err, result){
-            // console.log(result)
-        })
+        function updateCeleb () {
+            Celeb.findOneAndUpdate({name:name1},{$inc: {
+                [req.body[0][1] == 'win' ? 'yes' : 'no']:1
+            }}).exec(function(err, result){
+                // console.log(result)
+            })
+        }
+        function updateCelebWin () {
+            Celeb.findOneAndUpdate({name:name2},{$inc:{
+                [req.body[1][1] == 'win' ? 'yes' : 'no']:1
+            }}).exec(function(err,result){
+                // console.log(result)
+            })
+        }
+        updateCeleb()
+        updateCelebWin()
         var ratio1, ratio2
         (async () => {
             ratio1 = await Celeb.find({name:name1}).then(d => {
@@ -73,16 +84,15 @@ module.exports = (app, Celeb) => {
             //console.log('winner', winner)
             res.send(winner == guess ? 'correct' : 'wrong' )
         })().catch(err => console.log(err))
-        Celeb.findOneAndUpdate({name:name2},{$inc:{
-            [req.body[1][1] == 'win' ? 'yes' : 'no']:1
-        }}).exec(function(err,result){
-            // console.log(result)
-        })
+        /* Promise.all([updateCeleb, updateCelebWin, Celeb.find({name:name1}), Celeb.find({name:name2})])
+            .then(values => {
+                
+            })*/
+        
     })
     saveImg = (img, name) => {
         const imgPath = name.replace(/\s/g,'_')
-        console.log(imgPath)
-        .on('error', err => console.log(err))
+        //.on('error', err => console.log(err))
         request(img)
             .pipe(fs.createWriteStream(`./client/images/${name.replace(/\s/g,'_')}.jpg`))
     }
@@ -106,6 +116,25 @@ module.exports = (app, Celeb) => {
         //             .catch(err => console.log(err))
         //     })
         // })
+    })
+    app.get('/api/api-refresh-muppets', (req, res) => {
+        request('https://muppet.fandom.com/wiki/Category:Sesame_Street_Characters', (err, response, body) => {
+            const $ = cheerio.load(body)
+            $('li.category-page__trending-page').each( function (i,e) {
+                const name = $(this).find('.category-page__trending-page-title').text()
+                const image = $(this).find('img').attr('src')
+                console.log($(this).html())
+                console.log(name, image)
+                saveImg(image, name)
+                Celeb.find({name:name})
+                    .then(d => {
+                        if(d.length){return}
+                        const celeb = new Celeb({name:name})
+                        celeb.save()
+                    })
+                    .catch(err => console.log(err))
+            } )
+        })
     })
 
 }

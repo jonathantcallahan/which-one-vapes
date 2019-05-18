@@ -1,3 +1,7 @@
+* {
+  font-family: monospace
+}
+
 .App {
   text-align: center;
 }
@@ -20,6 +24,85 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.column {
+  padding: 20px;
+  margin: 50px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 100px #808080a8, 0px 0px 30px #00000045
+}
+
+.column-header {
+  font-size: 20px;
+  margin: 15px 0px
+}
+
+.leaderboard-group {
+  text-align: center;
+  vertical-align: top
+}
+
+.leaderboard-image-container {
+  position: relative;
+  margin: 10px 0px
+}
+
+.leaderboard-stat {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  border: 3px solid blue;
+  background-color: white;
+  padding: 5px;
+  border-radius: 50%;
+  color: blue;
+  font-weight: bolder
+}
+
+.leaderboard-group-header {
+  margin-bottom: 15px
+}
+
+.leaderboard-image {
+  display: inline-block;
+  border: 3px solid blue;
+  box-shadow: 0px 0px 10px rgba(0,0,0,.5)
+}
+
+.voting-container {
+  width: 100%
+}
+
+@keyframes shrink {
+  100% { width: 30% }
+}
+
+@keyframes expand {
+  100% { width: 60% }
+}
+
+@keyframes middle {
+  100% { width: 40% }
+}
+
+.shrink {
+  animation: shrink 1s forwards
+}
+
+.expand {
+  animation: expand 1s forwards
+}
+
+.middle {
+  animation: middle 1s forwards
+}
+
+.voting-image-container {
+  display: inline-block;
+  width: 40%;
+  vertical-align: top;
+  overflow: hidden
 }
 
 @keyframes App-logo-spin {
