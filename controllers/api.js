@@ -78,7 +78,6 @@ module.exports = (app, Celeb) => {
                     .then(d => console.log(''))
                 return ratio
             })
-            //console.log('ratios', ratio1, ratio2)
             if(ratio1 == ratio2){ res.send('tie'); return }
             const winner = ratio1 > ratio2 ? 1 : 2
             //console.log('winner', winner)

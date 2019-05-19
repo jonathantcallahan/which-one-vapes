@@ -51,7 +51,7 @@
 .leaderboard-stat {
   position: absolute;
   top: 0;
-  right: 20px;
+  right: 20%;
   border: 3px solid blue;
   background-color: white;
   padding: 5px;
@@ -71,11 +71,47 @@
 }
 
 .voting-container {
-  width: 100%
+  width: 100%;
+  position: relative
+}
+
+.voting-name-container {
+  position: absolute;
+  bottom: 40%;
+  left: 30%;
+  background-color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 3px solid blue;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 0px 0px 10px rgba(0,0,0,.5)
+}
+
+.voting-image-container {
+  display: inline-block;
+  width: 40%;
+  vertical-align: top;
+  overflow: hidden
+}
+
+.image-one {
+  border: 3px solid blue;
+  border-right: 0px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px
+}
+
+.image-two {
+  border: 3px solid blue;
+  border-left: 0px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-right: 3px
 }
 
 @keyframes shrink {
-  100% { width: 30% }
+  100% { width: 20% }
 }
 
 @keyframes expand {
@@ -96,13 +132,6 @@
 
 .middle {
   animation: middle 1s forwards
-}
-
-.voting-image-container {
-  display: inline-block;
-  width: 40%;
-  vertical-align: top;
-  overflow: hidden
 }
 
 @keyframes App-logo-spin {
