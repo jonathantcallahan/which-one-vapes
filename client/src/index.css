@@ -29,12 +29,13 @@ body {
 
 .leaderboard-group {
   display: inline-block;
-  width: 40%
+  width: 45%;
+  max-width: 150px
 }
 
 .leaderboard-image {
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   background-position: center center;
   background-size: auto 100%;
   background-repeat: no-repeat;

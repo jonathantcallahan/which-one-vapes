@@ -33,6 +33,12 @@
   box-shadow: 0px 0px 100px #808080a8, 0px 0px 30px #00000045
 }
 
+.leaderboard-column {
+  min-width: 300px;
+  max-width: 350px;
+  padding: 20px 0px
+}
+
 .column-header {
   font-size: 20px;
   margin: 15px 0px
@@ -52,7 +58,7 @@
 .leaderboard-stat {
   position: absolute;
   top: 0;
-  right: 20%;
+  right: 10%;
   border: 3px solid blue;
   background-color: white;
   padding: 5px;
@@ -69,6 +75,22 @@
   display: inline-block;
   border: 3px solid blue;
   box-shadow: 0px 0px 10px rgba(0,0,0,.5)
+}
+
+.leaderboard-toggle {
+  cursor: pointer;
+  background-color: white;
+  color: blue;
+  border: 3px solid blue;
+  font-weight: bold;
+  padding: 0px 10px 0px 8px;
+  border-radius: 10px;
+  font-size: 14px;
+  display: inline-block;
+  bottom: 2px;
+  margin-left: 10px;
+  position: relative
+  /* box-shadow: 0px 0px 5px rgba(0,0,0,.4), 0px 0px 2px rgba(0,0,0,.8) */
 }
 
 .vote-column {
