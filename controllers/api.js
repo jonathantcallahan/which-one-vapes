@@ -61,32 +61,38 @@ module.exports = (app, Celeb) => {
         updateCeleb()
         updateCelebWin()
         var ratio1, ratio2
-        (async () => {
-            ratio1 = await Celeb.find({name:name1}).then(d => {
+
+        const promise = new Promise((resolve, reject) => {
+            Celeb.find({name:name1}).then(d => {
                 d = d[0]
                 const ratio = d.yes / (d.yes + d.no)
                 console.log(ratio)
                 Celeb.findOneAndUpdate({name:name1},{ratio:ratio})
-                    .then(d => console.log(''))
+                    .then(() => resolve(ratio))
+                    .catch(reject)
                 return ratio
             })
-            ratio2 = await Celeb.find({name:name2}).then(d => {
+        });
+
+        const promise2 = new Promise((resolve, reject) => {
+            Celeb.find({name:name2}).then(d => {
                 d = d[0]
                 const ratio = d.yes / (d.yes + d.no)
                 console.log(ratio)
                 Celeb.findOneAndUpdate({name:name2},{ratio:ratio})
-                    .then(d => console.log(''))
-                return ratio
+                    .then(() => resolve(ratio))
+                    .catch(reject)
             })
+        })
+
+        Promise.all([promise, promise2]).then(data => {
+            const ratio1 = data[0]
+            const ratio2 = data[1]
             if(ratio1 == ratio2){ res.send('tie'); return }
             const winner = ratio1 > ratio2 ? 1 : 2
-            //console.log('winner', winner)
             res.send(winner == guess ? 'correct' : 'wrong' )
-        })().catch(err => console.log(err))
-        /* Promise.all([updateCeleb, updateCelebWin, Celeb.find({name:name1}), Celeb.find({name:name2})])
-            .then(values => {
-                
-            })*/
+        })
+
         
     })
     saveImg = (img, name) => {

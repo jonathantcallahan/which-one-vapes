@@ -45,7 +45,8 @@
 
 .leaderboard-image-container {
   position: relative;
-  margin: 10px 0px
+  margin: 10px 0px;
+  max-width: 185px
 }
 
 .leaderboard-stat {
@@ -70,8 +71,12 @@
   box-shadow: 0px 0px 10px rgba(0,0,0,.5)
 }
 
+.vote-column {
+  min-width: 650px
+}
+
 .voting-container {
-  width: 100%;
+  width: 600px;
   position: relative
 }
 
@@ -85,7 +90,8 @@
   border: 3px solid blue;
   font-size: 15px;
   font-weight: bold;
-  box-shadow: 0px 0px 10px rgba(0,0,0,.5)
+  box-shadow: 0px 0px 10px rgba(0,0,0,.5);
+  pointer-events: none
 }
 
 .voting-image-container {
@@ -132,6 +138,17 @@
 
 .middle {
   animation: middle 1s forwards
+}
+
+.show {
+  max-height: 1000px;
+  transition: max-height 0.25s ease-in;
+  overflow: hidden
+}
+
+.hide {
+  max-height: 0px;
+  transition: max-height 0.15s ease-out
 }
 
 @keyframes App-logo-spin {
