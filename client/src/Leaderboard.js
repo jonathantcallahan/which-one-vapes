@@ -18,7 +18,7 @@ class Leaderboard extends Component {
                 <div className='column-header'>LEADERBOARD</div>
                 <div onClick={this.hideLeaderboard}
                     >{this.state.leaderboard ? 'hide' : 'show'}</div>
-                <div className={'leaderboard-group-container ' + this.state.leaderboard ? 'show' : 'hide'}>
+                <div className={this.state.leaderboard ? 'show' : 'hide'}>
                     <div className='leaderboard-group'>
                         <div className='leaderboard-group-header'>most likely</div>
                     {this.props.leaderboard[0] && this.props.leaderboard[0].map(e => {

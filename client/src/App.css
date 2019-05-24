@@ -141,14 +141,14 @@
 }
 
 .show {
-  max-height: 1000px;
+  max-height: 2000px;
   transition: max-height 0.25s ease-in;
-  overflow: hidden
 }
 
 .hide {
   max-height: 0px;
-  transition: max-height 0.15s ease-out
+  transition: max-height 0.15s ease-out;
+  overflow: hidden
 }
 
 @keyframes App-logo-spin {
